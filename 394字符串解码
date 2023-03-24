@@ -1,0 +1,58 @@
+class Solution:
+    def decodeString(self, s: str) -> str:
+       # 用栈解决，res记录当前括号内的字符，栈中记录括号外的数字和上个括号内的内容
+       # ‘[’ 入栈， 遇到‘]’出栈
+        res, multi, stack = "", 0, []
+        for c in s:
+            if c == '[':
+                stack.append([res, multi])
+                res = ''
+                multi = 0
+            elif c == ']':
+                last_res, multi_num = stack.pop()
+                res = last_res + res * multi_num
+            elif '0' <= c <= '9':
+                multi = multi * 10 + int(c)
+            else:
+                res += c
+        return res
+       
+       
+       
+       
+       
+       
+      # 这是自己敲的代码，没解出来，还很冗长，主要问题时嵌套括号内的字符处理不好，无法正确返回字符倍数和上一字符的拼接
+      # stack = []
+      # i = 0
+      # while i < len(s):
+      #     if s[i].isdigit():
+      #         num = int(s[i])
+      #         while s[i+1].isdigit() and i+1 < len(s):
+      #             i += 1
+      #             num = 10 * num + int(i)
+      #         stack.append(num)
+      #     elif s[i] == '[':
+      #         sub = ''
+      #         while  s[i+1].isalpha():
+      #             i += 1
+      #             sub += s[i]
+      #         stack.append(sub)
+      #     elif s[i] == ']':
+      #         top = stack.pop()
+      #         top_2 = stack.pop()
+      #         if str(top_2).isdigit():
+      #             new = top * top_2
+      #         else:
+      #             new = top + top_2
+      #         stack.append(new)
+      #     else:
+      #         stack.append(s[i])
+      #     i += 1
+      # final_str = ''
+      # for j in stack:
+      #     final_str += j
+      # return final_str
+        
+        
+        
